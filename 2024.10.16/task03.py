@@ -16,23 +16,29 @@
 from random import randint
 import string
 
-def genStr(n:int , use_uppercase:bool = False, use_digit:bool = False)->str:
+def str_Upper()->str:
+    return string.ascii_uppercase
+
+def str_Digits()->str:
+    return string.digits
+
+def str_Symbols()->str:
+    return string.punctuation
+
+def genStr(n:int , use_uppercase:bool = False,
+                   use_digit:bool = False,
+                   use_symbol:bool = False)->str:
     g_str:str = ''
-    let = ''
-    if use_uppercase and use_digit:
-        let = string.digits + string.ascii_letters
-    elif use_uppercase:
-        let = string.ascii_letters
-    elif use_digit:
-        let = string.ascii_lowercase + string.digits
-    else:
-        let = string.ascii_lowercase
+    let = string.ascii_lowercase
+    if use_uppercase: let+=str_Upper()
+    if use_digit: let+=str_Digits()
+    if use_symbol: let+=str_Symbols()
 
     for i in range(0,n): g_str+= let[(randint(0,len(let)-1))]         
     return g_str
 
 def main()->None:
-    print(genStr(15,True))
+    print(genStr(15,True,True,True))
 
 if __name__ == '__main__':
     main()
